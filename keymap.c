@@ -196,7 +196,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             rgb_matrix_set_color_all(RGB_BLUE);
             break;
         case NUM:
-            rgb_matrix_set_color_all(RGB_PINK);
+            rgb_matrix_set_color_all(RGB_PURPLE);
             break;
         case GERM:
             rgb_matrix_set_color_all(RGB_YELLOW);
