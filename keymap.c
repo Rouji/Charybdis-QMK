@@ -23,11 +23,8 @@ enum custom_keycodes {
 };
 
 static bool SHIFTED = false;
-#define MOUSE_DIVISOR_X 2.0
-#define MOUSE_DIVISOR_Y 2.0
-static float mouse_accumulated_x = 0;
-static float mouse_accumulated_y = 0;
-
+static const uint16_t AUTO_MOUSE_THRESHOLD = 100;
+static uint16_t auto_mouse_cum = 0;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -40,13 +37,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [NAV] = LAYOUT(
-    RGB_VAI, RGB_MOD, KC_BRIU, KC_VOLU, _______,     _______, _______, _______, _______, _______,
+    RGB_VAI, RGB_MOD, KC_BRIU, KC_VOLU, QK_BOOT,     QK_RBT, _______, _______, _______, _______,
     RGB_VAD, TEST, KC_BRID, KC_VOLD, _______,     KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT,_______,
     RGB_TOG, _______, KC_MPLY, KC_MUTE, _______,     KC_HOME, KC_PGDN, KC_PGUP, KC_END , _______,
     _______, _______, _______, _______, _______
   ),
   [SYMB] = LAYOUT(
-   KC_PLUS, KC_EQL , KC_MINS, KC_UNDS, QK_BOOT,     QK_RBT , KC_QUOTE,KC_DQUO, KC_PIPE, KC_BSLS,
+   KC_PLUS, KC_EQL , KC_MINS, KC_UNDS, _______,     _______ , KC_QUOTE,KC_DQUO, KC_PIPE, KC_BSLS,
    KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
    KC_GRV , KC_TILD, _______, _______, KC_PSCR,     _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR,
    _______, _______, _______, _______, _______
@@ -64,15 +61,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______
   ),
   [MOUSE] = LAYOUT(
-   _______, _______, _______, _______, _______,     TG(GAME), DPI_MOD, DPI_RMOD, S_D_MOD, S_D_RMOD,
-   SNIPING, DRGSCRL, KC_MS_BTN2, KC_MS_BTN1, _______,     _______, KC_MS_BTN1, KC_MS_BTN2, DRGSCRL, SNIPING,
+   _______, _______, _______, _______, _______,     TG(GAME), DPI_RMOD, DPI_MOD, S_D_RMOD, S_D_MOD,
+   SNIPING, KC_MS_BTN4, KC_MS_BTN2, KC_MS_BTN1, _______,     _______, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN4, SNIPING,
    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______
   ),
   [GAME] = LAYOUT(
    KC_Q, KC_W, KC_E, KC_R, KC_T,     TG(GAME), _______, _______, _______, _______,
    KC_A, KC_S, KC_D, KC_F, KC_G,     _______, _______, _______, _______, _______,
-   KC_Z, KC_X, KC_C, KC_V, KC_B,     _______, _______, KC_MS_BTN1, KC_MS_BTN2, SNIPING,
+   KC_Z, KC_X, KC_C, KC_V, KC_B,     _______, DRGSCRL, KC_MS_BTN1, KC_MS_BTN2, SNIPING,
    KC_ESC, KC_SPC, KC_ENT, KC_TAB, _______
   ),
 };
@@ -186,6 +183,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+bool auto_mouse_activation(report_mouse_t mouse_report)
+{
+    if (mouse_report.buttons)
+    {
+        return true;
+    }
+    auto_mouse_cum += mouse_report.x + mouse_report.y + mouse_report.h + mouse_report.v;
+    if (auto_mouse_cum > AUTO_MOUSE_THRESHOLD)
+    {
+        auto_mouse_cum = 0;
+        return true;
+    }
+    return false;
+}
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     switch(get_highest_layer(layer_state|default_layer_state)) {
@@ -213,15 +224,4 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
     }
     return false;
-}
-
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    mouse_accumulated_x += (float)mouse_report.x / MOUSE_DIVISOR_X;
-    mouse_accumulated_y += (float)mouse_report.y / MOUSE_DIVISOR_Y;
-    mouse_report.x = (int8_t)mouse_accumulated_x;
-    mouse_report.y = (int8_t)mouse_accumulated_y;
-    mouse_accumulated_x -= (int8_t)mouse_accumulated_x;
-    mouse_accumulated_y -= (int8_t)mouse_accumulated_y;
-
-    return mouse_report;
 }
