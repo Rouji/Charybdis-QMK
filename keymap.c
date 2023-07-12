@@ -92,6 +92,11 @@ void pointing_device_init_user(void)
     set_auto_mouse_enable(true);
 }
 
+bool is_mouse_record_user(uint16_t keycode, keyrecord_t *record)
+{
+    return keycode == SNIPING;
+}
+
 void rgb_progress_bar(const uint8_t led_idx[], uint8_t led_count, float percent, uint8_t r, uint8_t g, uint8_t b)
 {
     float bar_len = (led_count) * percent;
@@ -183,13 +188,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+#define ABS(n) ((n) < 0 ? -(n) : (n))
 bool auto_mouse_activation(report_mouse_t mouse_report)
 {
-    if (mouse_report.buttons)
-    {
-        return true;
-    }
-    auto_mouse_cum += mouse_report.x + mouse_report.y + mouse_report.h + mouse_report.v;
+    auto_mouse_cum += ABS(mouse_report.x) + ABS(mouse_report.y) + ABS(mouse_report.h) + ABS(mouse_report.v);
     if (auto_mouse_cum > AUTO_MOUSE_THRESHOLD)
     {
         auto_mouse_cum = 0;
