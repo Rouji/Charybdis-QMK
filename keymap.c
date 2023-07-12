@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [MOUSE] = LAYOUT(
    _______, _______, _______, _______, _______,     TG(GAME), DPI_RMOD, DPI_MOD, S_D_RMOD, S_D_MOD,
-   SNIPING, KC_MS_BTN4, KC_MS_BTN2, KC_MS_BTN1, _______,     _______, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN4, SNIPING,
+   _______, _______, _______, _______, _______,     _______, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN4, SNIPING,
    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______
   ),
