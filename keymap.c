@@ -10,20 +10,20 @@
 #define SYMB 2
 #define NUM 3
 #define GERM 4
-#define MOUSE 5
-#define GAME 6
+#define AUTOMOUSE 5
+#define MOUSE 6
+#define GAME 7
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE,
   SZ,
   UUML,
   AUML,
-  OUML,
-  TEST
+  OUML
 };
 
 static bool SHIFTED = false;
-static const uint16_t AUTO_MOUSE_THRESHOLD = 100;
+static const uint16_t AUTO_MOUSE_THRESHOLD = 200;
 static uint16_t auto_mouse_cum = 0;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -38,39 +38,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [NAV] = LAYOUT(
     RGB_VAI, RGB_MOD, KC_BRIU, KC_VOLU, QK_BOOT,     QK_RBT, _______, _______, _______, _______,
-    RGB_VAD, TEST, KC_BRID, KC_VOLD, _______,     KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT,_______,
+    RGB_VAD, _______, KC_BRID, KC_VOLD, _______,     KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT,_______,
     RGB_TOG, _______, KC_MPLY, KC_MUTE, _______,     KC_HOME, KC_PGDN, KC_PGUP, KC_END , _______,
-    _______, _______, _______, _______, _______
+                      _______, _______, _______,     _______, _______
   ),
   [SYMB] = LAYOUT(
    KC_PLUS, KC_EQL , KC_MINS, KC_UNDS, _______,     _______ , KC_QUOTE,KC_DQUO, KC_PIPE, KC_BSLS,
    KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
    KC_GRV , KC_TILD, _______, _______, KC_PSCR,     _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR,
-   _______, _______, _______, _______, _______
+                     _______, _______, _______,     _______, _______
   ),
   [NUM] = LAYOUT(
    KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,     KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 ,
    KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   ,
    KC_F11 , KC_F12 , _______, _______, _______,     _______, _______, _______, _______, _______,
-   _______, _______, _______, _______, _______
+                     _______, _______, _______,     _______, _______
   ),
   [GERM] = LAYOUT(
    _______, _______, _______, _______, _______,     _______, UUML   , _______, OUML   , _______,
    AUML   , SZ     , _______, _______, _______,     _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
-   _______, _______, _______, _______, _______
+                     _______, _______, _______,     _______, _______
+  ),
+  [AUTOMOUSE] = LAYOUT(
+   _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
+   _______, _______, _______, _______, _______,     _______, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN4, SNIPING,
+   _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
+                     _______, _______, _______,     _______, _______
   ),
   [MOUSE] = LAYOUT(
    _______, _______, _______, _______, _______,     TG(GAME), DPI_RMOD, DPI_MOD, S_D_RMOD, S_D_MOD,
    _______, _______, _______, _______, _______,     _______, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN4, SNIPING,
    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
-   _______, _______, _______, _______, _______
+                     _______, _______, _______,     _______, _______
   ),
   [GAME] = LAYOUT(
    KC_Q, KC_W, KC_E, KC_R, KC_T,     TG(GAME), _______, _______, _______, _______,
    KC_A, KC_S, KC_D, KC_F, KC_G,     _______, _______, _______, _______, _______,
-   KC_Z, KC_X, KC_C, KC_V, KC_B,     _______, DRGSCRL, KC_MS_BTN1, KC_MS_BTN2, SNIPING,
-   KC_ESC, KC_SPC, KC_ENT, KC_TAB, _______
+   KC_Z, KC_X, KC_C, KC_V, KC_B,     _______, KC_MS_BTN4, KC_MS_BTN1, KC_MS_BTN2, SNIPING,
+         KC_ESC, KC_SPC, KC_ENT,     KC_TAB, _______
   ),
 };
 
@@ -88,7 +94,7 @@ combo_t key_combos[] = {
 
 void pointing_device_init_user(void)
 {
-    set_auto_mouse_layer(MOUSE);
+    set_auto_mouse_layer(AUTOMOUSE);
     set_auto_mouse_enable(true);
 }
 
@@ -213,6 +219,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
         case GERM:
             rgb_matrix_set_color_all(RGB_YELLOW);
+            break;
+        case AUTOMOUSE:
+            rgb_matrix_set_color_all(RGB_WHITE);
             break;
         case MOUSE:
             rgb_matrix_set_color_all(RGB_WHITE);
