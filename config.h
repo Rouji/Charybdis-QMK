@@ -1,6 +1,6 @@
-//#define RETRO_TAPPING
-//#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
+#define TAPPING_FORCE_HOLD  //apparently deprecated and does nothing
+#define QUICK_TAP_TERM 0  //does what TAPPING_FORCE_HOLD is supposed to do
 
 //#define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
 //#define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 400
