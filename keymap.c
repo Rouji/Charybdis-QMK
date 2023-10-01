@@ -26,11 +26,24 @@ static bool SHIFTED = false;
 static const uint16_t AUTO_MOUSE_THRESHOLD = 200;
 static uint16_t auto_mouse_cum = 0;
 
+//left hand base layer home row
+#define BL_A MT(MOD_LSFT, KC_A)
+#define BL_S MT(MOD_LCTL, KC_S)
+#define BL_D MT(MOD_LGUI, KC_D)
+#define BL_F MT(MOD_LALT, KC_F)
+
+//right hand base layer home row
+#define BL_J MT(MOD_RALT, KC_J)
+#define BL_K MT(MOD_RGUI, KC_K)
+#define BL_L MT(MOD_RCTL, KC_L)
+#define BL_SCLN MT(MOD_RSFT, KC_SCLN)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [QWERTY] = LAYOUT(
     KC_Q   , KC_W   , KC_E   , KC_R    , KC_T   ,     KC_Y   , KC_U   , KC_I   , KC_O   , KC_P    ,
-    MT(MOD_LSFT,KC_A)   , MT(MOD_LCTL, KC_S)   , MT(MOD_LGUI, KC_D)   , MT(MOD_LALT, KC_F)    , KC_G   ,     KC_H   , MT(MOD_RALT, KC_J)   , MT(MOD_RGUI, KC_K)   , MT(MOD_RCTL, KC_L)   , MT(MOD_RSFT, KC_SCLN),
+    BL_A  , BL_S  , BL_D  , BL_F   , KC_G   ,     KC_H   , BL_J  , BL_K  , BL_L  , BL_SCLN,
     KC_Z   , KC_X   , KC_C   , KC_V    , KC_B   ,     KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,
     LT(MOUSE, KC_ESC)  , LT(SYMB, KC_SPC) , LT(NAV, KC_ENT),      LT(GERM, KC_TAB),  LT(NUM, KC_BSPC)
   ),
@@ -81,15 +94,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-enum combo_events {
-    THUMB_DEL,
-    COMBO_LENGTH
-};
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
 const uint16_t PROGMEM thumb_del[] = {LT(GERM, KC_TAB),  LT(NUM, KC_BSPC), COMBO_END};
+const uint16_t PROGMEM lprn[] = {BL_D, BL_F, COMBO_END};
+const uint16_t PROGMEM rprn[] = {BL_J, BL_K, COMBO_END};
+const uint16_t PROGMEM lcbr[] = {BL_S, BL_D, COMBO_END};
+const uint16_t PROGMEM rcbr[] = {BL_K, BL_L, COMBO_END};
+const uint16_t PROGMEM lbrc[] = {KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM rbrc[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM lt[] = {KC_W, KC_E, COMBO_END};
+const uint16_t PROGMEM gt[] = {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM caps[] = {BL_A, BL_SCLN, COMBO_END};
 combo_t key_combos[] = {
-    [THUMB_DEL] = COMBO(thumb_del, KC_DEL),
+    COMBO(thumb_del, KC_DEL),
+    COMBO(lprn, KC_LPRN),
+    COMBO(rprn, KC_RPRN),
+    COMBO(lbrc, KC_LBRC),
+    COMBO(rbrc, KC_RBRC),
+    COMBO(lcbr, KC_LCBR),
+    COMBO(rcbr, KC_RCBR),
+    COMBO(lt, KC_LT),
+    COMBO(gt, KC_GT),
+    COMBO(caps, KC_CAPS),
 };
 
 void pointing_device_init_user(void)
