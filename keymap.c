@@ -38,14 +38,21 @@ static uint16_t auto_mouse_cum = 0;
 #define BL_L MT(MOD_RCTL, KC_L)
 #define BL_SCLN MT(MOD_RSFT, KC_SCLN)
 
+//base layer thumb keys
+#define BL_TH1 LT(MOUSE, KC_ESC)
+#define BL_TH2 LT(SYMB, KC_SPC)
+#define BL_TH3 LT(NAV, KC_ENT)
+#define BL_TH4 LT(GERM, KC_TAB)
+#define BL_TH5 LT(NUM, KC_BSPC)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [QWERTY] = LAYOUT(
-    KC_Q   , KC_W   , KC_E   , KC_R    , KC_T   ,     KC_Y   , KC_U   , KC_I   , KC_O   , KC_P    ,
-    BL_A  , BL_S  , BL_D  , BL_F   , KC_G   ,     KC_H   , BL_J  , BL_K  , BL_L  , BL_SCLN,
-    KC_Z   , KC_X   , KC_C   , KC_V    , KC_B   ,     KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,
-    LT(MOUSE, KC_ESC)  , LT(SYMB, KC_SPC) , LT(NAV, KC_ENT),      LT(GERM, KC_TAB),  LT(NUM, KC_BSPC)
+    KC_Q   , KC_W   , KC_E  , KC_R    ,KC_T   ,      KC_Y   , KC_U  , KC_I   , KC_O  ,  KC_P    ,
+    BL_A  ,  BL_S  ,  BL_D ,  BL_F   , KC_G   ,      KC_H   , BL_J ,  BL_K  ,  BL_L  ,  BL_SCLN,
+    KC_Z   , KC_X   , KC_C  , KC_V    ,KC_B   ,      KC_N   , KC_M  , KC_COMM, KC_DOT,  KC_SLSH,
+                      BL_TH1, BL_TH2,  BL_TH3,       BL_TH4,  BL_TH5
   ),
 
 
