@@ -58,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [NAV] = LAYOUT(
     RGB_VAI, RGB_MOD, KC_BRIU, KC_VOLU, QK_BOOT,     QK_RBT, _______, _______, _______, _______,
-    RGB_VAD, _______, KC_BRID, KC_VOLD, _______,     KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT,_______,
-    RGB_TOG, _______, KC_MPLY, KC_MUTE, _______,     KC_HOME, KC_PGDN, KC_PGUP, KC_END , _______,
+    RGB_VAD, _______, KC_BRID, KC_VOLD, NK_ON  ,     KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT,_______,
+    RGB_TOG, _______, KC_MPLY, KC_MUTE, NK_OFF ,     KC_HOME, KC_PGDN, KC_PGUP, KC_END , _______,
                       _______, _______, _______,     _______, _______
   ),
   [SYMB] = LAYOUT(
@@ -93,10 +93,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      _______, _______, _______,     _______, _______
   ),
   [GAME] = LAYOUT(
-   KC_Q, KC_W, KC_E, KC_R, KC_T,     TG(GAME), _______, _______, _______, _______,
-   KC_A, KC_S, KC_D, KC_F, KC_G,     _______, _______, _______, _______, _______,
-   KC_Z, KC_X, KC_C, KC_V, KC_B,     _______, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN4, SNIPING,
-         KC_ESC, KC_SPC, KC_ENT,     KC_TAB, _______
+   KC_Q, KC_W, KC_E, KC_R, KC_T,     TG(GAME), KC_U   , KC_I   , KC_O   ,KC_P    ,
+   KC_LSFT, KC_S, KC_D, KC_F, KC_G,     KC_H   ,  KC_J  ,  KC_K  ,  KC_L  , KC_SCLN,
+   KC_LCTL, KC_X, KC_C, KC_V, KC_B,     KC_N   , KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN4, SNIPING,
+         KC_ESC, KC_SPC, KC_ENT,     KC_TAB, KC_BSPC
   ),
 };
 
