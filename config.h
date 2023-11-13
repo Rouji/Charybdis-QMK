@@ -1,6 +1,7 @@
 #define PERMISSIVE_HOLD
 #define TAPPING_FORCE_HOLD  //apparently deprecated and does nothing
 #define QUICK_TAP_TERM 0  //does what TAPPING_FORCE_HOLD is supposed to do
+#define COMBO_STRICT_TIMER
 
 //#define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
 //#define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 400
@@ -15,4 +16,8 @@
 #define MOUSE_EXTENDED_REPORT
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 
-#define COMBO_STRICT_TIMER
+#define NO_DEBUG
+#define NO_PRINT
+
+#define COMBO_TERM 25
+#define COMBO_ONLY_ON_LAYER 0
