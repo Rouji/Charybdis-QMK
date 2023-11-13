@@ -121,7 +121,7 @@ combo_t key_combos[] = {
     COMBO(rcbr, KC_RCBR),
     COMBO(lt, KC_LT),
     COMBO(gt, KC_GT),
-    COMBO(caps, KC_CAPS),
+    COMBO(caps, QK_CAPS_WORD_TOGGLE),
 };
 
 void pointing_device_init_user(void)
