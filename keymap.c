@@ -23,8 +23,6 @@ enum custom_keycodes {
 };
 
 static bool SHIFTED = false;
-static const uint16_t AUTO_MOUSE_THRESHOLD = 200;
-static uint16_t auto_mouse_cum = 0;
 
 //left hand base layer home row
 #define BL_A MT(MOD_LSFT, KC_A)
@@ -224,18 +222,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     }
   return true;
-}
-
-#define ABS(n) ((n) < 0 ? -(n) : (n))
-bool auto_mouse_activation(report_mouse_t mouse_report)
-{
-    auto_mouse_cum += ABS(mouse_report.x) + ABS(mouse_report.y) + ABS(mouse_report.h) + ABS(mouse_report.v);
-    if (auto_mouse_cum > AUTO_MOUSE_THRESHOLD)
-    {
-        auto_mouse_cum = 0;
-        return true;
-    }
-    return false;
 }
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
