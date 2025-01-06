@@ -10,7 +10,7 @@
 //#define POINTING_DEVICE_RIGHT
 
 #define SPLIT_LAYER_STATE_ENABLE
-#define CHARYBDIS_CONFIG_SYNC
+//#define CHARYBDIS_CONFIG_SYNC
 
 //maybe fixes suspend/wake problems?
 #undef CONSOLE_ENABLE
