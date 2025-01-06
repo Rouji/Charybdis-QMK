@@ -128,12 +128,18 @@ void pointing_device_init_user(void)
     set_auto_mouse_enable(true);
 }
 
-/*
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t *record)
 {
-    return keycode == SNIPING;
+    switch(keycode) {
+        case KC_MS_BTN1:
+        case KC_MS_BTN2:
+        case KC_MS_BTN3:
+        case KC_MS_BTN4:
+        case SNIPING:
+            return true;
+    }
+    return false;
 }
-*/
 
 void rgb_progress_bar(const uint8_t led_idx[], uint8_t led_count, float percent, uint8_t r, uint8_t g, uint8_t b)
 {
