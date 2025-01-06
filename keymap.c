@@ -128,10 +128,12 @@ void pointing_device_init_user(void)
     set_auto_mouse_enable(true);
 }
 
+/*
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t *record)
 {
     return keycode == SNIPING;
 }
+*/
 
 void rgb_progress_bar(const uint8_t led_idx[], uint8_t led_count, float percent, uint8_t r, uint8_t g, uint8_t b)
 {
